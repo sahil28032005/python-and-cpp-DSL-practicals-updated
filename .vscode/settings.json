@@ -1,0 +1,12 @@
+{
+    "python.formatting.provider": "black",
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "iostream": "cpp",
+        "typeinfo": "cpp",
+        "array": "cpp",
+        "string": "cpp",
+        "new": "cpp",
+        "ostream": "cpp"
+    }
+}
