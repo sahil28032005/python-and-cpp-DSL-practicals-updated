@@ -1,1 +1,1 @@
-right
+int graphRef[5][5], int rows, int columns
