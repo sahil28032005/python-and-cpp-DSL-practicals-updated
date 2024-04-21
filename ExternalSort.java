@@ -3,7 +3,7 @@ import java.util.*;
 
 class ExternalSort {
     private static final int chunkSize = 1024;
-    private static final int ram = 3;// assumed internal memory size accepting 30 lines from input line created near
+    private static final int ram = 4;// assumed internal memory size accepting 30 lines from input line created near
                                      // xamppath in my case
 
     public void externalSort(String inputFile, String OutputFile) throws IOException {
@@ -47,13 +47,16 @@ class ExternalSort {
                 } else {
                     writeToTape(buffer, writer2);
                 }
-                buffer.clear();// clearing ram as rams task has been over freeing for optimizing  other tasks
-                phase++;//increaese phase count for accomodation
+                buffer.clear();// clearing ram as rams task has been over freeing for optimizing other tasks
+                phase++;// increaese phase count for accomodation
             }
-            //closing tapes as an good practice
+            // closing tapes as an good practice
             reader.close();
             writer1.close();
             writer2.close();
+
+            //sending tapes to merge
+            mergeSortedTapes("output1.temp","output2.temp", OutputFile);
         }
     }
 
@@ -65,8 +68,47 @@ class ExternalSort {
         }
     }
 
-    private void mergeSortedTapes(){
-        
+    private void mergeSortedTapes(String tape1, String tape2, String outputTape) throws IOException {
+        // in this phase we just merge splitted data from our file in single output
+        // driver file
+        // creating readers and writers for our files
+        BufferedReader reader1 = new BufferedReader(new FileReader(tape1));// tape 1 reader
+        BufferedReader reader2 = new BufferedReader(new FileReader(tape2));// tae 2 reader
+        // ccreating writer for output file
+        BufferedWriter writer = new BufferedWriter(new FileWriter(outputTape));
+        // taking lines from tapes and comparing them to send to output file
+        String line1 = reader1.readLine();
+        String line2 = reader2.readLine();
+
+        while (line1 != null && line2 != null) {
+            if (line1.compareTo(line2) <= 0) {
+                // meanse line 1 consists smaller data
+                writer.write(line1);
+                writer.newLine();
+                line1 = reader1.readLine();// to go next line in further iterations
+            } else {
+                writer.write(line2);
+                writer.newLine();
+                line2 = reader2.readLine();// move cursor to next for further iterations
+            }
+        }
+        // checking if some input data still rmaining in case of one tape is empty
+        while (line1 != null) {
+            // means line 1 tape has some data remaining
+            writer.write(line1);
+            writer.newLine();
+            line1 = reader1.readLine();
+        }
+        while (line2 != null) {
+            writer.write(line2);
+            writer.newLine();
+            line2 = reader2.readLine();
+        }
+        // closing tapes as an good practic
+        reader1.close();
+        reader2.close();
+        writer.close();
+
     }
 
     public static void main(String[] arg) throws IOException {
