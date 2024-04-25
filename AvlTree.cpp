@@ -14,6 +14,7 @@ public:
         balFact = 0;
     }
 };
+// uodate height after each rotation
 Node *rotateLeft(Node *respectTo)
 {
     Node *right = respectTo->right;
@@ -21,10 +22,17 @@ Node *rotateLeft(Node *respectTo)
 
     right->left = respectTo;
     respectTo->right = left;
+
     return right;
 }
 Node *roatateRight(Node *respectTo)
 {
+    Node *left = respectTo->left;
+    Node *right = left->right;
+
+    left->right = respectTo;
+    respectTo->left = right;
+    return left;
 }
 int findHeight(Node *root) // calculating height properly
 {
@@ -43,7 +51,7 @@ int getBalenceFactor(Node *root)
 {
     if (root != NULL)
     {
-        return abs((findHeight(root->left) - 1) - (findHeight(root->right) - 1));
+        return (findHeight(root->left) - 1) - (findHeight(root->right) - 1);
     }
 }
 
@@ -66,6 +74,36 @@ Node *insertIntoBst(Node *root, int data)
         cout << "inserted at left" << endl;
     }
     root->balFact = getBalenceFactor(root);
+
+    // cout << "not an balenceed tree" << endl;
+    // here define cases for ll rr lr rl
+    // for ll rotation
+    if (root->balFact > 1 && data < root->left->data)
+    {
+        cout << "case for ll rotation" << endl;
+        return roatateRight(root);
+    }
+    // rr rotation
+    if (root->balFact < -1 && data > root->right->data)
+    {
+        cout << "case for rr rotations" << endl;
+        return rotateLeft(root);
+    }
+    // lr rotatation
+    if (root->balFact > 1 && data > root->left->data)
+    {
+        cout << "case for lr rotation" << endl;
+        root->left = rotateLeft(root->left);
+        return roatateRight(root);
+    }
+    // rl rotation case
+    if (root->balFact < -1 && data < root->right->data)
+    {
+        cout << "case for rl rotation" << endl;
+        root->right = roatateRight(root->right);
+        return rotateLeft(root);
+    }
+
     return root; // returns current root to previous call stack;
 }
 
@@ -146,6 +184,8 @@ int main()
         case 4:
             root = rotateLeft(root);
             break;
+        case 5:
+            root = roatateRight(root);
         }
     }
 
