@@ -103,10 +103,10 @@ Node *deleteFromBst(Node *root, string key)
         }
         if (root->left && root->right)
         {
-            Node *rightMin=findMin(root->right);
-            root->key=rightMin->key;
-            root->value=rightMin->value;
-            root->right=deleteFromBst(root->right,rightMin->key);
+            Node *rightMin = findMin(root->right);
+            root->key = rightMin->key;
+            root->value = rightMin->value;
+            root->right = deleteFromBst(root->right, rightMin->key);
         }
     }
     else
@@ -142,36 +142,36 @@ Node *insertIntoBst(Node *root, string key, string value)
         root->left = insertIntoBst(root->left, key, value);
         cout << "inserted at left" << endl;
     }
-    // root->balFact = getBalenceFactor(root);
+    root->balFact = getBalenceFactor(root);
 
-    // // cout << "not an balenceed tree" << endl;
-    // // here define cases for ll rr lr rl
-    // // for ll rotation
-    // if (root->balFact > 1 && data < root->left->data)
-    // {
-    //     cout << "case for ll rotation" << endl;
-    //     return roatateRight(root);
-    // }
-    // // rr rotation
-    // if (root->balFact < -1 && data > root->right->data)
-    // {
-    //     cout << "case for rr rotations" << endl;
-    //     return rotateLeft(root);
-    // }
-    // // lr rotatation
-    // if (root->balFact > 1 && data > root->left->data)
-    // {
-    //     cout << "case for lr rotation" << endl;
-    //     root->left = rotateLeft(root->left);
-    //     return roatateRight(root);
-    // }
-    // // rl rotation case
-    // if (root->balFact < -1 && data < root->right->data)
-    // {
-    //     cout << "case for rl rotation" << endl;
-    //     root->right = roatateRight(root->right);
-    //     return rotateLeft(root);
-    // }
+    // cout << "not an balenceed tree" << endl;
+    // here define cases for ll rr lr rl
+    // for ll rotation
+    if (root->balFact > 1 && key.compare(root->left->key) < 0)
+    {
+        cout << "case for ll rotation" << endl;
+        return roatateRight(root);
+    }
+    // rr rotation
+    if (root->balFact < -1 && key.compare(root->right->key) > 0)
+    {
+        cout << "case for rr rotations" << endl;
+        return rotateLeft(root);
+    }
+    // lr rotatation
+    if (root->balFact > 1 && key.compare(root->left->key) > 0)
+    {
+        cout << "case for lr rotation" << endl;
+        root->left = rotateLeft(root->left);
+        return roatateRight(root);
+    }
+    // rl rotation case
+    if (root->balFact < -1 && key.compare(root->right->key) < 0)
+    {
+        cout << "case for rl rotation" << endl;
+        root->right = roatateRight(root->right);
+        return rotateLeft(root);
+    }
 
     return root; // returns current root to previous call stack;
 }
