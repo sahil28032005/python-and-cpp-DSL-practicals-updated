@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-class ExternalSort {
+class ExternalSortUsingString {
     private static final int chunkSize = 1024;
     private static final int ram = 4;// assumed internal memory size accepting 30 lines from input line created near
                                      // xamppath in my case
@@ -14,18 +14,16 @@ class ExternalSort {
         BufferedWriter writer1 = new BufferedWriter(new FileWriter("output1.temp"));// after writing this writer file
                                                                                     // created automatically
         BufferedWriter writer2 = new BufferedWriter(new FileWriter("output2.temp"));
-        // List<String> buffer = new ArrayList<>(ram);// used as physical processing perrformer in m csase inatialized as
-        List<Integer> buffer = new ArrayList<>(ram);                                         // of isze ram
+        List<String> buffer = new ArrayList<>(ram);// used as physical processing perrformer in m csase inatialized as
+                                                   // of isze ram
 
         // sample phases for distribution in output filewriter files
         int phase = 0;
         String lineReader;
-        // int lineReader;
         if (reader.ready()) {
             while ((lineReader = reader.readLine()) != null) {
                 // System.out.println(lineReader);
-                int number = Integer.parseInt(lineReader);
-                buffer.add(number);// here i added line as an string teturn valus getted from linereader
+                buffer.add(lineReader);// here i added line as an string teturn valus getted from linereader
                 if (buffer.size() >= ram) {
                     System.out.println("Ram is full cannot accept nore data...");
                     Collections.sort(buffer);// here i have sorted arriven buffer as ram get full
@@ -62,11 +60,10 @@ class ExternalSort {
         }
     }
 
-    private void writeToTape(List<Integer> buffer, BufferedWriter tape) throws IOException {
+    private void writeToTape(List<String> buffer, BufferedWriter tape) throws IOException {
         System.out.println("data arriven for writing purpose...");
-        for (int line : buffer) {
-            String stringValue = String.valueOf(line);
-            tape.write(stringValue);
+        for (String line : buffer) {
+            tape.write(line);
             tape.newLine();
         }
     }

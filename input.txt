@@ -1,8 +1,7 @@
-apple
-banana
-orange
-grape
-melon
-cherry
-kiwi
-lemon
+1
+34
+56
+7
+3
+45
+99

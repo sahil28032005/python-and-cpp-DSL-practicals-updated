@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-class ExternalSort {
+class ExternalSortUsingInt {
     private static final int chunkSize = 1024;
     private static final int ram = 4;// assumed internal memory size accepting 30 lines from input line created near
                                      // xamppath in my case
