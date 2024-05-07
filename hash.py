@@ -57,3 +57,29 @@ while True:
         search(data)
     elif choice == 4:
         break
+
+//CREATED FOR PRACTICE
+# size=int(input("enter the size if hash table"))
+# hashT=size* [-1]
+
+# def linearProb(number):
+#     for i in range(size):
+#         if(hashT[((number % size) +i)%size]==-1):
+#             hashT[((number % size) +i)%size]=number;
+#             return
+#     print("table was full cannot insert")
+    
+# def quadraticProb(number):
+#     for i in range(size):
+#         if(hashT[((number % size) +(i*i))%size]==-1):
+#             hashT[((number % size) +i*i)%size]=number;
+#             return
+#     print("table was full cannot insert")
+
+# def printData():
+#     for i in range(size):
+#         print(hashT[i])
+# quadraticProb(12);
+# quadraticProb(12);
+# quadraticProb(12);
+# printData();
