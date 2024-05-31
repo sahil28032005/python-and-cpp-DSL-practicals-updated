@@ -67,7 +67,7 @@ while 1:
         )
     )
     if choise == 1:
-        for i in range(size):
+        # for i in range(size):
             key = int(input("Enter your key"))
             value = input("Enter value")
             p1 = Record(key, value)
