@@ -11,6 +11,7 @@ public:
         this->data = data;
     }
 };
+//checkpoint
 void printLinkedList(Node *head)
 {
     while (head != NULL)
