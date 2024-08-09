@@ -16,7 +16,7 @@ void manageTopological(int vertex, stack<int> &st, unordered_map<int, bool> &vis
         if (!visited[item])
         {
             // make recursive call stacks until end of stack contigueness
-            manageTopological(item, st, visited, adjList);
+            manageTopological(item, st, visited, adjList);//recursive call
         }
     }
 
